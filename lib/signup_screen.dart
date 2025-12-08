@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newprojectfirebase/core/constants/string_const.dart';
-import 'package:newprojectfirebase/features/login_screen.dart';
+import 'package:newprojectfirebase/login_screen.dart';
 import 'package:newprojectfirebase/features/providers/auth_provider.dart';
 import 'package:newprojectfirebase/features/widgets/custom_elevated_button.dart';
 import 'package:newprojectfirebase/features/widgets/custom_textformfield.dart';

@@ -2,7 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:newprojectfirebase/features/login_screen.dart';
+import 'package:newprojectfirebase/forgot_password.dart';
+import 'package:newprojectfirebase/login_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:newprojectfirebase/firebase_options.dart';
 import 'package:newprojectfirebase/features/providers/auth_provider.dart';
@@ -122,7 +123,7 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         title: 'Google Sign In Demo',
         theme: ThemeData(primarySwatch: Colors.blue),
-        home: const LoginScreen(),
+        home: const ForgotPassword(),
         debugShowCheckedModeBanner: false,
       ),
     );
