@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomTextform extends StatelessWidget {
-  CustomTextform({
+  const CustomTextform({
     super.key,
     this.labelText,
     this.keyboardType,
@@ -13,13 +13,14 @@ class CustomTextform extends StatelessWidget {
     this.obscureText = false,
   });
 
-  Widget? suffixIcon, prefixIcon;
-  String? Function(String?)? validator;
-  String? labelText;
-  void Function(String)? onChanged;
-  InputDecoration? decoration = const InputDecoration();
-  TextInputType? keyboardType;
-  bool obscureText;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
+  final String? Function(String?)? validator;
+  final String? labelText;
+  final void Function(String)? onChanged;
+  final InputDecoration? decoration;
+  final TextInputType? keyboardType;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {

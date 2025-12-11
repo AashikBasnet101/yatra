@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:newprojectfirebase/features/widgets/custom_elevated_button.dart';
@@ -26,7 +25,7 @@ class _VerifyIdentityScreenState extends State<VerifyIdentityScreen> {
       });
     }
 
-    Navigator.pop(context); // close photo options
+    Navigator.pop(context); 
     Navigator.pop(context); // close upload sheet
     openUploadBottomSheet(); // reopen to show "File Selected"
   }

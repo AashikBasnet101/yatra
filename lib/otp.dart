@@ -82,7 +82,7 @@ class _ResetOtpNewState extends State<ResetOtp> {
     );
   }
 
-  // OTP BOX USING YOUR CUSTOM TEXTFORM
+  
   Widget _otpBox(int index) {
     return SizedBox(
       width: 60,

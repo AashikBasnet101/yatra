@@ -8,8 +8,6 @@ class ForgotPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController phoneController = TextEditingController();
-
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FA),
       body: SafeArea(
@@ -32,16 +30,13 @@ class ForgotPassword extends StatelessWidget {
                 ],
               ),
 
-
-
-const SizedBox(height: 24),
-const Text(
+              const SizedBox(height: 24),
+              const Text(
                 "Find your account",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 10),
 
-         
               const Text(
                 "Enter your registered phone number.\nWe’ll send you a verification code.",
                 style: TextStyle(fontSize: 16, color: Colors.black54),

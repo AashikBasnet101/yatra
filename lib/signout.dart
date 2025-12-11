@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:newprojectfirebase/signup_screen.dart';
-import 'package:newprojectfirebase/ui.dart';
 import 'package:provider/provider.dart';
 import 'features/providers/auth_provider.dart';
 

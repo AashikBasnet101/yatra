@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:newprojectfirebase/forgot_password.dart';
 import 'package:newprojectfirebase/login_screen.dart';
+import 'package:newprojectfirebase/utils/route_generator.dart';
+import 'package:newprojectfirebase/utils/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:newprojectfirebase/firebase_options.dart';
 import 'package:newprojectfirebase/features/providers/auth_provider.dart';
@@ -24,6 +28,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   void initState() {
@@ -55,7 +61,14 @@ class _MyAppState extends State<MyApp> {
       showSimpleNotification(
         message.notification?.title ?? "",
         message.notification?.body ?? "",
+        
       );
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      navigatorKey.currentState?.pushNamed(Routes.notificationsRoute, arguments: NotificationsPayload(
+        title: message.notification?.title,
+        body: message.notification?.body,
+      ));
     });
   }
 
@@ -74,29 +87,44 @@ class _MyAppState extends State<MyApp> {
 
     const InitializationSettings initializationSettings =
         InitializationSettings(
-      android: initializationSettingsAndroid,
-      iOS: initializationSettingsIOS,
-    );
+          android: initializationSettingsAndroid,
+          iOS: initializationSettingsIOS,
+        );
 
-    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: (details) {
+  final data = jsonDecode(details.payload!);
+
+ print(data);
+  navigatorKey.currentState?.pushNamed(
+    Routes.notificationsRoute,
+    arguments: NotificationsPayload(
+      title: data["title"],
+      body: data["body"],
+    ),
+  );
+},
+
+    );
   }
 
   void showSimpleNotification(String title, String body) async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
-      'your_channel_id',
-      'your_channel_name',
-      channelDescription: 'your_channel_description',
-      importance: Importance.max,
-      priority: Priority.high,
-      ticker: 'ticker',
+          'your_channel_id',
+          'your_channel_name',
+          channelDescription: 'your_channel_description',
+          importance: Importance.max,
+          priority: Priority.high,
+          ticker: 'ticker',
 
-      // Small icon (white) from drawable
-      icon: '@drawable/yatra',
+          // Small icon (white) from drawable
+          icon: '@drawable/yatra',
 
-      // Optional large icon (full color) from mipmap
-      largeIcon: DrawableResourceAndroidBitmap('yatra'),
-    );
+          // Optional large icon (full color) from mipmap
+          largeIcon: DrawableResourceAndroidBitmap('yatra'),
+        );
 
     const DarwinNotificationDetails iOSPlatformChannelSpecifics =
         DarwinNotificationDetails();
@@ -111,6 +139,10 @@ class _MyAppState extends State<MyApp> {
       title,
       body,
       platformChannelSpecifics,
+      payload: jsonEncode({
+    "title": title,
+    "body": body,
+  }),
     );
   }
 
@@ -121,11 +153,20 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
       ],
       child: MaterialApp(
+        navigatorKey: navigatorKey,
+        onGenerateRoute: RouteGenerator.generateRoute,
         title: 'Google Sign In Demo',
         theme: ThemeData(primarySwatch: Colors.blue),
-        home: const ForgotPassword(),
+        home: const LoginScreen(),
         debugShowCheckedModeBanner: false,
       ),
     );
   }
+
+}
+class NotificationsPayload {
+  final String? title;
+  final String? body;
+
+  NotificationsPayload({this.title, this.body});
 }

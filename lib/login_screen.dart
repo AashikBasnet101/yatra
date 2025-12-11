@@ -3,6 +3,7 @@ import 'package:newprojectfirebase/core/constants/string_const.dart';
 import 'package:newprojectfirebase/features/providers/auth_provider.dart';
 import 'package:newprojectfirebase/features/widgets/custom_elevated_button.dart';
 import 'package:newprojectfirebase/features/widgets/custom_textformfield.dart';
+import 'package:newprojectfirebase/forgot_password.dart';
 import 'package:newprojectfirebase/signout.dart';
 import 'package:newprojectfirebase/signup_screen.dart';
 import 'package:provider/provider.dart';
@@ -21,14 +22,13 @@ class LoginScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // ---------------- Logo / Image ----------------
-             Center(
+            Center(
               child: SizedBox(
                 height: 180,
                 width: MediaQuery.of(context).size.width * 0.80,
                 child: Image.asset("assets/yatra.png"),
               ),
             ),
-
 
             const SizedBox(height: 20),
 
@@ -60,13 +60,13 @@ class LoginScreen extends StatelessWidget {
 
             const SizedBox(height: 30),
 
-            // ---------------- Username ----------------
+            // ---------------- phone ----------------
             Column(
               children: [
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    AppStrings.name,
+                    AppStrings.phone,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
@@ -75,13 +75,11 @@ class LoginScreen extends StatelessWidget {
                 ),
 
                 CustomTextform(
-                  labelText: AppStrings.enterName,
+                  labelText: AppStrings.enterPhone,
                   onChanged: (val) {},
                 ),
               ],
             ),
-
-
 
             const SizedBox(height: 16),
 
@@ -107,21 +105,26 @@ class LoginScreen extends StatelessWidget {
               ],
             ),
 
-            
-
             // ---------------- Forgot Password ----------------
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () {
-                  
-                },
-                child: const Text(
-                  'Forgot Password?',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 92, 88, 88),
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
+                onPressed: () {},
+                child: GestureDetector(
+                  onTap: () {
+              
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ForgotPassword()),
+                    );
+                  },
+                  child: Text(
+                    'Forgot Password?',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 92, 88, 88),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
+                    ),
                   ),
                 ),
               ),
@@ -130,17 +133,19 @@ class LoginScreen extends StatelessWidget {
             const SizedBox(height: 20),
 
             // ---------------- Login Button ----------------
-             CustomElevatedButton(
+            CustomElevatedButton(
               width: double.infinity,
               backgroundColor: const Color(0xFF3D8DB5),
               onPressed: auth.isLoading ? null : () {},
               child: auth.isLoading
                   ? const CircularProgressIndicator()
-                  : Text(AppStrings.login,
-                  style: TextStyle(
-            fontSize: 16,       // 👈 Set font size here
-            fontWeight: FontWeight.w500, // optional
-          ),)
+                  : Text(
+                      AppStrings.login,
+                      style: TextStyle(
+                        fontSize: 16, // 👈 Set font size here
+                        fontWeight: FontWeight.w500, // optional
+                      ),
+                    ),
             ),
 
             const SizedBox(height: 6),
@@ -150,36 +155,26 @@ class LoginScreen extends StatelessWidget {
               child: TextButton(
                 onPressed: () {
                   Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const SignUpScreen(),
-                          ),
-                        );
+                    context,
+                    MaterialPageRoute(builder: (_) => const SignUpScreen()),
+                  );
                 },
                 child: const Text(
                   "Don't have an account? Sign Up",
                   style: TextStyle(
                     color: Color.fromARGB(255, 92, 88, 88),
                     fontSize: 15,
-                    fontWeight: FontWeight.w400
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ),
             ),
 
-
-
-
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: const [
-                  Expanded(
-                    child: Divider(
-                      thickness: 1,
-                      color: Colors.grey,
-                    ),
-                  ),
+                  Expanded(child: Divider(thickness: 1, color: Colors.grey)),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
@@ -191,18 +186,12 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Divider(
-                      thickness: 1,
-                      color: Colors.grey,
-                    ),
-                  ),
+                  Expanded(child: Divider(thickness: 1, color: Colors.grey)),
                 ],
               ),
             ),
 
-
-// ---------------- Google Sign-In Button ----------------
+            // ---------------- Google Sign-In Button ----------------
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: CustomElevatedButton(
@@ -231,7 +220,11 @@ class LoginScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset("assets/google_logo.png", width: 22, height: 22),
+                    Image.asset(
+                      "assets/google_logo.png",
+                      width: 22,
+                      height: 22,
+                    ),
                     const SizedBox(width: 10),
                     const Text("Sign In with Google"),
                   ],
