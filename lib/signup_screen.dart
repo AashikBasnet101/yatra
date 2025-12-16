@@ -11,9 +11,16 @@ import 'package:newprojectfirebase/signout.dart';
 import 'package:newprojectfirebase/verify_identity.dart';
 import 'package:provider/provider.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   SignUpScreen({super.key});
- String? name , address , phoneNumber , password ;
+
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+ String? name , address , phoneNumber, emailAddress , password ;
+
   @override
  
   Widget build(BuildContext context) {
@@ -134,6 +141,31 @@ class SignUpScreen extends StatelessWidget {
 
          const SizedBox(height: 12),
 
+         Column(
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    AppStrings.email,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+
+                CustomTextform(
+                  labelText: AppStrings.enterEmail,
+                  keyboardType: TextInputType.emailAddress,
+                  onChanged: (val) {
+                    emailAddress = val;
+                  },
+                ),
+              ],
+            ),
+
+         const SizedBox(height: 12),
+
             // ---------------- Password ----------------
             Column(
               children: [
@@ -171,6 +203,7 @@ class SignUpScreen extends StatelessWidget {
       name: name,
       address: address,
       phone: phoneNumber,
+      email: emailAddress,
       password: password,
       profileUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Salman_Khan_in_2023_%281%29_%28cropped%29.jpg/250px-Salman_Khan_in_2023_%281%29_%28cropped%29.jpg",
     identity: Identity(

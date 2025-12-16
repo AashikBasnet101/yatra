@@ -2,6 +2,7 @@ class User {
   String? name;
   String? address;
   String? phone;
+  String? email;
   String? password;
   Identity? identity;
   String? profileUrl;
@@ -10,6 +11,7 @@ class User {
       {this.name,
       this.address,
       this.phone,
+      this.email,
       this.password,
       this.identity,
       this.profileUrl});
@@ -18,6 +20,7 @@ class User {
     name = json['name'];
     address = json['address'];
     phone = json['phone'];
+    email = json['email'];
     password = json['password'];
     identity = json['identity'] != null
         ?  Identity.fromJson(json['identity'])
@@ -30,6 +33,7 @@ class User {
     data['name'] = this.name;
     data['address'] = this.address;
     data['phone'] = this.phone;
+    data['email'] = this.email;
     data['password'] = this.password;
     if (this.identity != null) {
       data['identity'] = this.identity!.toJson();
