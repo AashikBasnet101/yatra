@@ -11,6 +11,8 @@ import 'package:newprojectfirebase/features/providers/auth_provider.dart';
 import 'package:newprojectfirebase/features/widgets/custom_elevated_button.dart';
 import 'package:newprojectfirebase/features/widgets/custom_textformfield.dart';
 import 'package:newprojectfirebase/signout.dart';
+import 'package:newprojectfirebase/utils/route_generator.dart';
+import 'package:newprojectfirebase/utils/routes.dart';
 import 'package:newprojectfirebase/verify_identity.dart';
 import 'package:provider/provider.dart';
 
@@ -40,10 +42,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
 
     if (state is AuthLoadedState) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => VerifyIdentityScreen()),
-      );
+      RouteGenerator.navigateToPageWithoutStack(
+  context,
+  Routes.verifyIdentityRoute,
+);
+
     }},
  
           child:  Column(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:newprojectfirebase/main.dart';
 import 'package:newprojectfirebase/notifications.dart';
 import 'package:newprojectfirebase/utils/routes.dart';
+import 'package:newprojectfirebase/verify_identity.dart';
 
 class RouteGenerator {
   static navigateToPage(BuildContext context, String route,
@@ -27,6 +28,9 @@ class RouteGenerator {
       NotificationsPayload ? payload= settings.arguments as NotificationsPayload?;
 
         return MaterialPageRoute(builder: (_) =>  Notifications(notificationsPayload: payload,));
+
+        case Routes.verifyIdentityRoute:
+      return MaterialPageRoute(builder: (_) => VerifyIdentityScreen());
         
         default:
         return MaterialPageRoute(

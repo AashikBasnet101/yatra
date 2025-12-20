@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:newprojectfirebase/add_places.dart';
 import 'package:newprojectfirebase/features/auth/bloc/auth_bloc.dart';
 import 'package:newprojectfirebase/features/test/test_bloc.dart';
 import 'package:newprojectfirebase/features/test/test_of_bloc.dart';
@@ -177,7 +178,7 @@ class _MyAppState extends State<MyApp> {
         onGenerateRoute: RouteGenerator.generateRoute,
         title: 'Google Sign In Demo',
         theme: ThemeData(primarySwatch: Colors.blue),
-        home:  SignUpScreen(),
+        home:  AddPlacesScreen(),
         debugShowCheckedModeBanner: false,
       ),
     );
