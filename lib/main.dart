@@ -178,6 +178,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<AddPlacesBloc>(
           create: (_) => AddPlacesBloc(),
         ),
+        BlocProvider<DeletePlaceBloc>(create:(_) => DeletePlaceBloc()),
         BlocProvider<GetPlacesBloc>(create:(_) => GetPlacesBloc())],
       child: MaterialApp(
         navigatorKey: navigatorKey,

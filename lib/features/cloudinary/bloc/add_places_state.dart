@@ -16,6 +16,7 @@ class AddPlacesErrorState extends AddPlacesState {
 
 //get places state
 
+
 abstract class GetPlacesState {}
 
 class GetPlacesInitialState extends GetPlacesState {}
@@ -30,4 +31,23 @@ class GetPlacesLoadedState extends GetPlacesState {
 class GetPlacesErrorState extends GetPlacesState {
   final String message;
   GetPlacesErrorState(this.message);
+}
+
+
+
+//delete places event
+abstract class DeletePlaceState {}
+
+class DeletePlaceInitialState extends DeletePlaceState {}
+
+class DeletePlaceLoadingState extends DeletePlaceState {}
+
+class DeletePlaceSuccessState extends DeletePlaceState {
+  final String placeId;
+  DeletePlaceSuccessState(this.placeId);
+}
+
+class DeletePlaceErrorState extends DeletePlaceState {
+  final String error;
+  DeletePlaceErrorState(this.error);
 }

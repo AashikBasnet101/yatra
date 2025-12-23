@@ -20,3 +20,20 @@ class AddPlaceEvent extends AddPlacesEvent {
 abstract class GetPlacesEvent {}
 
 class FetchPlacesEvent extends GetPlacesEvent {}
+
+class RemovePlaceFromUIEvent extends GetPlacesEvent {
+  final String placeId;
+  RemovePlaceFromUIEvent(this.placeId);
+}
+
+
+
+//delete place event
+abstract class DeletePlaceEvent {}
+
+class DeletePlaceByIdEvent extends DeletePlaceEvent {
+  final String placeId;
+  DeletePlaceByIdEvent(this.placeId);
+}
+
+

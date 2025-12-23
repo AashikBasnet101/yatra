@@ -34,12 +34,11 @@ class AddPlacesBloc extends Bloc<AddPlacesEvent, AddPlacesState> {
 
 
 //get places bloc
-
-
 class GetPlacesBloc extends Bloc<GetPlacesEvent, GetPlacesState> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   GetPlacesBloc() : super(GetPlacesInitialState()) {
+    // FETCH PLACES
     on<FetchPlacesEvent>((event, emit) async {
       emit(GetPlacesLoadingState());
 
@@ -50,7 +49,11 @@ class GetPlacesBloc extends Bloc<GetPlacesEvent, GetPlacesState> {
             .get();
 
         final places = snapshot.docs.map((doc) {
-          return AddPlace.fromJson(doc.data());
+          final data = doc.data();
+          return AddPlace.fromJson({
+            "id": doc.id,
+            ...data,
+          });
         }).toList();
 
         emit(GetPlacesLoadedState(places));
@@ -58,7 +61,43 @@ class GetPlacesBloc extends Bloc<GetPlacesEvent, GetPlacesState> {
         emit(GetPlacesErrorState(e.toString()));
       }
     });
+
+
+
+    // REMOVE PLACE FROM UI (🔥 THIS WAS MISSING)
+    on<RemovePlaceFromUIEvent>((event, emit) {
+      if (state is GetPlacesLoadedState) {
+        final currentState = state as GetPlacesLoadedState;
+
+        final updatedPlaces = currentState.places
+            .where((place) => place.id != event.placeId)
+            .toList();
+
+        emit(GetPlacesLoadedState(updatedPlaces));
+      }
+    });
   }
 }
 
 
+
+class DeletePlaceBloc extends Bloc<DeletePlaceEvent, DeletePlaceState> {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  DeletePlaceBloc() : super(DeletePlaceInitialState()) {
+    on<DeletePlaceByIdEvent>((event, emit) async {
+      emit(DeletePlaceLoadingState());
+
+      try {
+        await firestore
+            .collection('places')
+            .doc(event.placeId)
+            .delete();
+
+        emit(DeletePlaceSuccessState(event.placeId));
+      } catch (e) {
+        emit(DeletePlaceErrorState(e.toString()));
+      }
+    });
+  }
+}
